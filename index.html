@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Timer</title>
+  </head>
+  <body>
+    <input type="number" name="minutes" value="5">
+    <input type="number" name="seconds" value="0">
+    <button type="button" class='js-start' name="button">Start</button>
+    <h1></h1>
+    <script type="text/javascript">
+      var els = {
+        minutes: document.querySelector("[name='minutes']"),
+        seconds: document.querySelector("[name='seconds']")
+      }
+      var h1 = document.querySelector("h1")
+      var timer;
+      var start = document.querySelector(".js-start");
+      start.addEventListener("click", function(event){
+        var limit = parseInt(els.minutes.value) * 60 + parseInt(els.seconds.value);
+        timer = setInterval((function count(){
+          var minutes = Math.floor(limit / 60);
+          var seconds = limit % 60;
+          h1.innerHTML = minutes + "m: " + seconds + "s";
+          document.title = minutes + "m: " + seconds + "s";
+          if(limit===0){
+            alert("time's up!")
+            clearInterval(timer);
+          }
+          limit--;
+          return count;
+        })(),1000)
+      })
+    </script>
+  </body>
+</html>
